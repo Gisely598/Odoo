@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_stock_picking_id_template">
+        <t t-call="web.external_layout">
+            <!-- FORMATO DE IMPRESIÓN CABECERA -->
+            <div class="page">
+                <div class="mb-2">          
+                    <div class="text-center">
+                        <span>Movimiento de Stock Nro.: <t t-esc="o.name" /></span>
+                        <br />
+                        <t t-if="o.picking_type_id.code == 'incoming'">
+                            <!-- <strong><span>ENTRADA DE MERCANCIAS</span></strong> -->
+                            <span style="font-size: 18px; font-weight: bold;">ENTRADA DE MERCANCIAS</span>
+                            <br />
+                        </t>
+                        <t t-elif="o.picking_type_id.code == 'outgoing'">
+                            <!-- <strong><span>SALIDA DE MERCANCIAS</span></strong> -->
+                            <span style="font-size: 18px; font-weight: bold;">SALIDA DE MERCANCIAS</span>
+                            <br />
+                        </t>
+                        <t t-else="">
+                            <!-- <strong><span>TRANSFERENCIA DE MERCANCIAS</span></strong> -->
+                            <span style="font-size: 18px; font-weight: bold;">TRANSFERENCIA DE MERCANCIAS</span>
+                            <br />
+                        </t>
+                        <t t-if="o.picking_type_id.code == 'incoming'">
+                            <span>Almacén: <t t-esc="o.location_dest_id.warehouse_id.name" /></span>
+                            <br />
+                        </t>
+                        <t t-elif="o.picking_type_id.code == 'outgoing'">
+                            <span>Almacén: <t t-esc="o.location_id.warehouse_id.name" /></span>
+                            <br />
+                        </t>
+                        <t t-else="">
+                            <span>Almacén: <t t-esc="o.location_id.warehouse_id.name" /></span>
+                            <br />
+                        </t>
+                        <span>Ref.: <t t-esc="o.origin" /></span>
+                        <br />
+                    </div>
+                    
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-6">
+                        <div class="text-left">
+                            <span>Entregado a: <t t-esc="o.delivered_id.name" /></span>
+                            <br />
+                            <span>Almacén Origen: <t t-esc="o.picking_type_id.warehouse_id.name" /></span>
+                            <br />
+                            <span>Almacén Destino: <t t-esc="o.location_dest_id.name" /></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-left">
+                            <span>Tipo de Operación: <t t-esc="o.picking_type_id.name" /></span>
+                            <br />
+                            <span>Fecha Efectiva: <t t-esc="o.date_done" /></span>
+                            <br />
+                            <span>Fecha Prevista: <t t-esc="o.scheduled_date" /></span>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <!-- FORMATO DE IMPRESIÓN CUERPO -->
+                <div class="row">
+                    <table style="width:100%;font-family: sans-serif;font-size: 13px;">
+                        <thead class="table table-bordered">
+                            <tr>
+                                <th style="border: 1px solid black;text-align: center">Nro.</th>
+                                <th style="border: 1px solid black;text-align: center">Producto</th>
+                                <th style="border: 1px solid black;text-align: center">Código de Barras</th>
+                                <th style="border: 1px solid black;text-align: center">Und.</th>
+                                <th style="border: 1px solid black;text-align: center">Lote</th>
+                                <th style="border: 1px solid black;text-align: center">Cantidad</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- Aquí puedes agregar los datos de tu tabla utilizando Odoo y XML -->
+                            <t t-set="conta" t-value="0" />
+                            <tr t-foreach="o.move_line_ids_without_package" t-as="line">
+                                <t t-set="conta" t-value="conta+1" />
+                                <th style="border: 1px solid black;text-align: center">
+                                    <t t-esc="conta" />
+                                </th>
+                                <td style="border: 1px solid black;text-align: left">
+                                    <t t-esc="line.product_id.default_code + ' - ' + line.product_id.name" />
+                                </td>
+                                <td style="border: 1px solid black;text-align: center">
+                                    <t t-esc="line.product_id.barcode" />
+                                </td>
+                                <td style="border: 1px solid black;text-align: center">
+                                    <t t-esc="line.product_uom_id.name" />
+                                </td>
+                                <td style="border: 1px solid black;text-align: center">
+                                    <t t-esc="line.lot_id.name" />
+                                </td>
+                                <td style="border: 1px solid black;text-align: center">
+                                    <t t-esc="line.qty_done" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <br />
+
+                <div class="row">
+                    <div class="col-2">
+                        <div class="text-left">
+                            <span>Nota:</span>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="text-left">
+                            <t t-esc="o.note" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORMATO DE IMPRESIÓN PIE DE PDF -->
+                <div class="footer">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <div style="width:80%;border-bottom:2px solid #333; margin:auto;"></div>
+                            <div><span>Entregado por:</span></div>
+                            <span><t t-esc="o.user_id.name" /></span>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div style="width:80%;border-bottom:2px solid #333; margin:auto;"></div>
+                            <div><span>Autorizado Gerencia</span></div>
+                            <span>Nombre:</span>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div style="width:80%;border-bottom:2px solid #333; margin:auto;"></div>
+                            <div><span>Recibí Conforme:</span></div>
+                            <span>
+                                <t t-esc="o.delivered_id.name" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_stock_picking">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="rs_custom_report_print.report_stock_picking_id_template" />
+            </t>
+        </t>
+    </template>
+</odoo>
