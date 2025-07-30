@@ -153,4 +153,30 @@
             </t>
         </t>
     </template>
+     <!-- Heredamos el layout general de Odoo -->
+    <template id="custom_external_layout_footer" inherit_id="web.external_layout">
+        <xpath expr="//div[@class='footer']" position="replace">
+            <div class="footer" style="font-size:10px; text-align:center;">
+                <p>Este documento es generado automáticamente por el sistema Odoo - Página <span class="page"/> de <span class="topage"/></p>
+                <br/>
+                <strong>LEYENDA</strong><br/>
+                <div style="text-align: justify; font-size: 8px; margin-top: 5px;">
+                    <p>A) El proveedor se obliga a cumplir y entregar los bienes de acuerdo a la calidad y especificaciones establecidas en la orden de compra.</p>
+                    <p>B) Los términos y condiciones de esta orden de compra prevalecerán sobre cualquier disposición de la documentación del proveedor que entrare en conflicto con ellos.</p>
+                    <p>C) La presente Orden de Compra debe ser entregada impostergablemente hasta la fecha de entrega/vencimiento.</p>
+                    <p>D) El proveedor emitirá la factura de acuerdo a condiciones estipuladas en la orden de compra, entregando la factura conjuntamente la entrega de mercadería.</p>
+                    <p>E) Los documentos que deberán presentarse al momento de entregar la mercadería son: Orden de compra impresa, Factura impresa, NIT o boleta de pago (régimen simplificado/agropecuario).</p>
+                    <p>F) De existir una diferencia entre la presente Orden de Compra y la(s) Factura(s), para su aceptación esta(s) no debe exceder Bs. 5.-</p>
+                    <p>G) Si el proveedor no pudiese cumplir con esta orden de compra en su totalidad, deberá informar dentro del plazo de 2 días calendario desde la fecha de recepción de este documento.</p>
+                    <p>H) El proveedor deberá asegurarse que los bienes sean empacados de forma correcta para evitar posibles daños durante el transporte o almacenamiento.</p>
+                    <p>I) Es responsabilidad del proveedor la verificación de la orden de compra (plazos, cantidades, precios, códigos de barra, etc.) antes de hacer la entrega en sala.</p>
+                    <p>J) Vencida la presente Orden de Compra no tiene ninguna validez.</p>
+                    <p>K) No se aceptarán facturas de meses posteriores al ingreso de la mercadería; toda factura debe ser entregada al momento de recepción.</p>
+                    <p>L) El horario establecido para las entregas es de Lunes a Viernes de 08:00 a 14:00.</p>
+                    <p>M) La programación de pago correrá a partir de la fecha de entrega de la factura.</p>
+                    <p>N) Para pagos al contado: Toda entrega de mercadería realizada hasta el medio día (12:00), el comprobante de pago será enviado hasta las 14:00. Para entregas posteriores, será enviado hasta las 18:00.</p>
+                </div>
+            </div>
+        </xpath>
+    </template>
 </odoo>

@@ -56,4 +56,17 @@
 		<field name="paperformat_id" ref="rs_custom_report_print.action_format_report_custom" />
 	</record>
 
+	<!-- Leyenda de factura -->
+
+	<record id="stock_picking_action_report" model="ir.actions.report">
+		<field name="name">Leyenda</field>
+		<field name="model">stock.picking</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">rs_custom_report_print.report_stock_picking</field>
+		<field name="report_file">rs_custom_report_print.report_stock_picking</field>
+		<field name="print_report_name">'Guía de remisión - %s' % (object.name)</field>
+		<field name="binding_model_id" ref="stock.model_stock_picking" />
+		<field name="paperformat_id" ref="rs_custom_report_print.action_format_report_custom" />
+	</record>
+
 </odoo>
